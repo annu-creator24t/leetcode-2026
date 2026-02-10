@@ -1,0 +1,60 @@
+
+<-----------Bruteforce Approach------------>
+class Solution {
+    public void moveZeroes(int[] nums) {
+
+        int n = nums.length;
+
+        int[] nonZero = new int[n];
+        int[] zero = new int[n];
+
+        int nzIndex = 0;
+        int zIndex = 0;
+
+        // Separate non-zero and zero elements
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != 0) {
+                nonZero[nzIndex++] = nums[i];
+            } else {
+                zero[zIndex++] = 0;
+            }
+        }
+        // Concatenate both arrays back into original
+        int index = 0;
+
+        for (int i = 0; i < nzIndex; i++) {
+            nums[index++] = nonZero[i];
+        }
+
+        for (int i = 0; i < zIndex; i++) {
+            nums[index++] = zero[i];
+        }
+    }
+}     
+      // TC=(n) ,SC=O(n) 
+
+
+<------------optimal Approach-------------->
+class Solution {
+    public void moveZeroes(int[] nums) {
+
+        // Start with the first position
+        int insertPosition = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+
+            // FILL all non-zero numbers
+            if (nums[i] != 0) {
+                nums[insertPosition] = nums[i];
+                insertPosition++;
+            }
+        }
+
+        // Fill remaining positions with zero
+        while (insertPosition < nums.length) {
+            nums[insertPosition++] = 0;
+        }
+    }
+}
+
+    // TC=(n) ,SC=O(1)
