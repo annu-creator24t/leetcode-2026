@@ -55,7 +55,7 @@ class Solution {
         return longest;
     }
 }
-         //Tc=O(logn) ,Sc=O(1)
+         //Tc=O(nlogn) ,Sc=O(1)
 
 <-------------------Optimal------------------>
 
