@@ -1,0 +1,28 @@
+<-----------------Bruteforce----------------->
+class Solution {
+    public int longestConsecutive(int[] nums) {
+
+        int n = nums.length;
+        int longest = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            int current = nums[i];
+            int count = 1;
+
+            while (contains(nums, current + 1)) {
+                current++;
+                count++;
+            }
+
+            longest = Math.max(longest, count);
+        }
+        return longest;
+    }
+    private boolean contains(int[] nums, int target) {
+        for (int x : nums)
+            if (x == target)
+                return true;
+        return false;
+    }
+}     // Tc=O(N³) ,Sc=O(1)
