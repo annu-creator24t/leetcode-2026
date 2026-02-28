@@ -1,0 +1,96 @@
+<----- Using Single Queue -------->
+
+class MyStackSingleQueue {
+
+    private Queue<Integer> queue;
+
+    public MyStackSingleQueue() {
+        queue = new LinkedList<>();
+    }
+
+    // Push → O(n)
+    public void push(int x) {
+        queue.add(x);
+
+        int size = queue.size();
+        for (int i = 1; i < size; i++) {
+            queue.add(queue.remove());
+        }
+    }
+
+    // Pop → O(1)
+    public int pop() {
+        return queue.remove();
+    }
+
+    // Top → O(1)
+    public int top() {
+        return queue.peek();
+    }
+
+    // Empty → O(1)
+    public boolean empty() {
+        return queue.isEmpty();
+    }
+}
+
+
+
+<----- Using Two Queues -------->
+
+class MyStackTwoQueues {
+
+    private Queue<Integer> q1;
+    private Queue<Integer> q2;
+
+    public MyStackTwoQueues() {
+        q1 = new LinkedList<>();
+        q2 = new LinkedList<>();
+    }
+
+    // Push → O(1)
+    public void push(int x) {
+        q1.add(x);
+    }
+
+    // Pop → O(n)
+    public int pop() {
+
+        while (q1.size() > 1) {
+            q2.add(q1.remove());
+        }
+
+        int topElement = q1.remove();
+
+        // Swap queues
+        Queue<Integer> temp = q1;
+        q1 = q2;
+        q2 = temp;
+
+        return topElement;
+    }
+
+    // Top → O(n)
+    public int top() {
+
+        while (q1.size() > 1) {
+            q2.add(q1.remove());
+        }
+
+        int topElement = q1.peek();
+        q2.add(q1.remove());
+
+        // Swap queues
+        Queue<Integer> temp = q1;
+        q1 = q2;
+        q2 = temp;
+
+        return topElement;
+    }
+
+    // Empty → O(1)
+    public boolean empty() {
+        return q1.isEmpty();
+    }
+}
+
