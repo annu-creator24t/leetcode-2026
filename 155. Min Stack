@@ -1,0 +1,81 @@
+<------Using 2 stack------>
+
+class MinStack {
+    private Stack<Integer> stack;
+    private Stack<Integer> minStack;
+
+    public MinStack() {
+        stack = new Stack<>();
+        minStack = new Stack<>();
+    }
+
+    public void push(int val) {
+        stack.push(val);
+        if (minStack.isEmpty() || val <= minStack.peek()) {
+            minStack.push(val);
+        }
+    }
+
+    public void pop() {
+        int poppedValue = stack.pop();
+        if (poppedValue == minStack.peek()) {
+            minStack.pop();
+        }
+    }
+
+    public int top() {
+        return stack.peek();
+    }
+
+    public int getMin() {
+        return minStack.peek();
+    }
+}     //Tc =O(1) Sc=O(N) 
+
+
+<--------Usin single stack------->
+import java.util.*;
+
+class MinStack {
+    private Stack<Long> stack;
+    private long min;
+
+    public MinStack() {
+        stack = new Stack<>();
+    }
+
+    public void push(int val) {
+        if (stack.isEmpty()) {
+            stack.push((long) val);
+            min = val;
+        } else {
+            if (val < min) {
+                // Store encoded value
+                stack.push(2L * val - min);
+                min = val;
+            } else {
+                stack.push((long) val);
+            }
+        }
+    }
+
+    public void pop() {
+        long top = stack.pop();
+        if (top < min) {
+            // Restore previous minimum
+            min = 2 * min - top;
+        }
+    }
+
+    public int top() {
+        long top = stack.peek();
+        if (top < min) {
+            return (int) min;
+        }
+        return (int) top;
+    }
+
+    public int getMin() {
+        return (int) min;
+    }
+}     //Tc =O(1) Sc=O(1)  
